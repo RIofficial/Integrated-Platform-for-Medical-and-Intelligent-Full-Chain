@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.Hospital.mapper.TreatmentMapper">
+
+    <resultMap id="treatmentMap" type="com.example.Hospital.domain.Treatment">
+        <id column="tid" property="tid" />
+        <result column="rid" property="rid" />
+        <result column="uid" property="uid" />
+    </resultMap>
+
+    <select id="findAll" resultMap="treatmentMap">
+        select * from treatment
+    </select>
+
+    <select id="findByTid" parameterType="String" resultMap="treatmentMap">
+        select * from treatment where tid = #{tid}
+    </select>
+
+    <insert id="insertTreatment" parameterType="com.example.Hospital.domain.Treatment">
+        insert into treatment(tid, rid, uid) values(#{tid}, #{rid}, #{uid})
+    </insert>
+
+    <update id="changeTreatment" parameterType="com.example.Hospital.domain.Treatment">
+        update treatment set rid = #{rid}, uid = #{uid} where tid = #{tid}
+    </update>
+
+    <delete id="deleteTreatment" parameterType="String">
+        delete from treatment where tid = #{tid}
+    </delete>
+
+    <select id="countTreatmentsByUid" resultType="java.util.Map">
+        SELECT uid, COUNT(*) as count FROM treatment GROUP BY uid
+    </select>
+
+    <select id="countTreatmentsByRid" resultType="java.util.Map">
+        SELECT rid, COUNT(*) as count FROM treatment GROUP BY rid
+    </select>
+
+</mapper>

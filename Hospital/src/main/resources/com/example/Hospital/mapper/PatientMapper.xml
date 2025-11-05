@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.Hospital.mapper.PatientMapper">
+
+    <resultMap id="patientMap" type="com.example.Hospital.domain.Patient">
+        <id column="rid" property="rid" />
+        <result column="username" property="username" />
+        <result column="age" property="age" />
+        <result column="disaster" property="disaster" />
+    </resultMap>
+
+    <select id="findAll" resultMap="patientMap">
+        select * from patient
+    </select>
+
+    <select id="findByRid" parameterType="String" resultMap="patientMap">
+        select * from patient where rid = #{rid}
+    </select>
+
+    <insert id="insertPatient" parameterType="com.example.Hospital.domain.Patient">
+        insert into patient(rid, username, age, disaster) values(#{rid}, #{username}, #{age}, #{disaster})
+    </insert>
+
+    <update id="changePatient" parameterType="com.example.Hospital.domain.Patient">
+        update patient set username = #{username}, age = #{age}, disaster = #{disaster} where rid = #{rid}
+    </update>
+
+    <delete id="deletePatient" parameterType="String">
+        delete from patient where rid = #{rid}
+    </delete>
+
+    <select id="countPatientsByAge" resultType="java.util.Map">
+        SELECT age, COUNT(*) as count FROM patient GROUP BY age
+    </select>
+
+    <select id="countPatientsByDisaster" resultType="java.util.Map">
+        SELECT disaster, COUNT(*) as count FROM patient GROUP BY disaster
+    </select>
+
+</mapper>

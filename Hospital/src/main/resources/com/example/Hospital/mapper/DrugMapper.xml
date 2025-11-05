@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.Hospital.mapper.DrugMapper">
+
+    <resultMap id="drugMap" type="com.example.Hospital.domain.Drug">
+        <id column="did" property="did" />
+        <result column="drugname" property="drugname" />
+        <result column="stock" property="stock" />
+        <result column="price" property="price" />
+    </resultMap>
+
+    <select id="findAll" resultMap="drugMap">
+        select * from drug
+    </select>
+
+    <select id="findByDid" parameterType="String" resultMap="drugMap">
+        select * from drug where did = #{did}
+    </select>
+
+    <insert id="insertDrug" parameterType="com.example.Hospital.domain.Drug">
+        insert into drug(did, drugname, stock, price) values(#{did}, #{drugname}, #{stock}, #{price})
+    </insert>
+
+    <update id="changeDrug" parameterType="com.example.Hospital.domain.Drug">
+        update drug set drugname = #{drugname}, stock = #{stock}, price = #{price} where did = #{did}
+    </update>
+
+    <delete id="deleteDrug" parameterType="String">
+        delete from drug where did = #{did}
+    </delete>
+
+</mapper>

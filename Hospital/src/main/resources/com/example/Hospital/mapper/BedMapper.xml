@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.Hospital.mapper.BedMapper">
+
+    <resultMap id="bedMap" type="com.example.Hospital.domain.Bed">
+        <id column="bid" property="bid" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <select id="findAll" resultMap="bedMap">
+        select * from bed
+    </select>
+
+    <select id="findByBid" parameterType="String" resultMap="bedMap">
+        select * from bed where bid = #{bid}
+    </select>
+
+    <insert id="insertBed" parameterType="com.example.Hospital.domain.Bed">
+        insert into bed(bid, status) values(#{bid}, #{status})
+    </insert>
+
+    <update id="changeBed" parameterType="com.example.Hospital.domain.Bed">
+        update bed set status = #{status} where bid = #{bid}
+    </update>
+
+    <delete id="deleteBed" parameterType="String">
+        delete from bed where bid = #{bid}
+    </delete>
+
+</mapper>

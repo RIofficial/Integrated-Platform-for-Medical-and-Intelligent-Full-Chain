@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.Hospital.mapper.WorkMapper">
+    <resultMap id="workMap" type="com.example.Hospital.domain.Work">
+        <id column="pid" property="pid" />
+        <result column="username" property="username" />
+        <result column="date" property="date" />
+        <result column="endtime" property="endtime" />
+        <result column="position" property="position" />
+    </resultMap>
+    <select id="findAll" resultMap="workMap">
+        select * from work
+    </select>
+    <insert id="insertWork" parameterType="com.example.Hospital.domain.Work">
+        insert into work(pid, username, date, endtime, position) value(#{pid},#{username},#{date}, #{endtime}, #{position})
+    </insert>
+    <update id="changeWork" parameterType="com.example.Hospital.domain.Work">
+        update work set pid=#{pid}, username=#{username}, date=#{date}, endtime=#{endtime}, position=#{position} where pid=#{pid}
+    </update>
+    <delete id="deleteWork" parameterType="Integer">
+        delete from work where pid=#{pid}
+    </delete>
+</mapper>
